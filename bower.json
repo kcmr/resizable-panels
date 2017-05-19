@@ -1,0 +1,25 @@
+{
+  "name": "resizable-panels",
+  "version": "0.0.0",
+  "authors": [
+    "Kus Cámara <anonymous@example.com>"
+  ],
+  "description": "An element providing a solution to no problem in particular.",
+  "keywords": [
+    "web-component",
+    "polymer",
+    "resizable",
+    "panel"
+  ],
+  "main": "resizable-panels.html",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/kcmr/resizable-panels/",
+  "ignore": [],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.8.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "^4.0.0"
+  }
+}

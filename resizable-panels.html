@@ -1,0 +1,58 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+An element providing a solution to no problem in particular.
+
+Example:
+
+    <resizable-panels></resizable-panels>
+
+Example:
+
+    <resizable-panels>
+      <h2>Hello resizable-panels</h2>
+    </resizable-panels>
+
+@demo demo/index.html
+@hero hero.svg
+-->
+
+<dom-module id="resizable-panels">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        box-sizing: border-box;
+      }
+
+      ::slotted(:not(.knob)) {
+        overflow: hidden;
+      }
+
+      ::slotted(.knob) {
+        width: 4px;
+        background-color: var(--resizable-panels-knob-color, #888);
+        cursor: ew-resize;
+        flex-shrink: 0;
+      }
+
+      /*:host([vertical]) {
+        flex-direction: column;
+      }
+
+      :host([vertical]) ::slotted(.knob) {
+        width: 100%;
+        height: 4px;
+        cursor: ns-resize;
+      }*/
+
+      :host(.dragging) ::slotted(*) {
+        pointer-events: none;
+        user-select: none;
+      }
+    </style>
+
+    <slot></slot>
+  </template>
+  <script src="resizable-panels.js"></script>
+</dom-module>

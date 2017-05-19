@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>resizable-panels Demo</title>
+    <script>window.Polymer = { dom: 'shadow', lazyRegister: true, useNativeCSSProperties: true };</script>
+    <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="../resizable-panels.html">
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        font-size: 14px;
+      }
+      resizable-panels {
+        margin-bottom: 20px;
+      }
+      .main {
+        width: 60%;
+        padding: 10px;
+        background-color: yellow;
+      }
+      .sidebar {
+        width: 40%;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body unresolved>
+    <resizable-panels>
+      <div class="main">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis sapiente explicabo nemo cupiditate, consectetur distinctio? Quia aperiam sint, ex id quibusdam mollitia. Autem animi reprehenderit quam, dolorum hic, ratione sed.</p>
+      </div>  
+      <div class="sidebar">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam perferendis cupiditate consequuntur veritatis labore neque, maxime ea voluptatem dolorum provident, aut ipsa sed enim sit necessitatibus, tempore nisi non animi?</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam perferendis cupiditate consequuntur veritatis labore neque, maxime ea voluptatem dolorum provident, aut ipsa sed enim sit necessitatibus, tempore nisi non animi?</p>
+      </div>
+    </resizable-panels>
+
+    <resizable-panels>
+      <div class="panel" onclick="alert('hola');">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed sapiente, veniam sint amet excepturi temporibus impedit praesentium fugit perspiciatis pariatur ab provident totam sequi nemo, corporis, placeat doloremque, accusamus?</div>
+      <div class="panel">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed sapiente, veniam sint amet excepturi temporibus impedit praesentium fugit perspiciatis pariatur ab provident totam sequi nemo, corporis, placeat doloremque, accusamus?</div>
+      <div class="panel">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed sapiente, veniam sint amet excepturi temporibus impedit praesentium fugit perspiciatis pariatur ab provident totam sequi nemo, corporis, placeat doloremque, accusamus?</div>
+    </resizable-panels>
+
+    <hr>
+
+    <!-- <resizable-panels vertical>
+      <div class="panel">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed sapiente, veniam sint amet excepturi temporibus impedit praesentium fugit perspiciatis pariatur ab provident totam sequi nemo, corporis, placeat doloremque, accusamus?</div>
+      <div class="panel">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed sapiente, veniam sint amet excepturi temporibus impedit praesentium fugit perspiciatis pariatur ab provident totam sequi nemo, corporis, placeat doloremque, accusamus?</div>
+      <div class="panel">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed sapiente, veniam sint amet excepturi temporibus impedit praesentium fugit perspiciatis pariatur ab provident totam sequi nemo, corporis, placeat doloremque, accusamus?</div>
+    </resizable-panels> -->
+  </body>
+</html>
