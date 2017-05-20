@@ -94,19 +94,12 @@
       var hParams = { previous: previous, next: next, styleProperty: 'width', total: this._totalWidth, offset: Math.abs(e.detail.dx) };
       var vParams = { previous: previous, next: next, styleProperty: 'height', total: this._totalHeight, offset: Math.abs(e.detail.dy) };
 
-      if (this._draggingDirection === 'horizontal') {
-        if (e.detail.dx < 0) {
-          this._shrinkPrevious(hParams);
-        } else {
-          this._shrinkNext(hParams);
-        }
-      } else {
-        if (e.detail.dy < 0) {
-          this._shrinkPrevious(vParams);
-        } else {
-          this._shrinkNext(vParams);
-        }
-      }
+      var resizeParams = {
+        offset: this._draggingDirection === 'horizontal' ? e.detail.dx : e.detail.dy,
+        params: this._draggingDirection === 'horizontal' ? hParams : vParams
+      };
+
+      this._resize(resizeParams.offset, resizeParams.params);
     },
 
     _onTrackEnd: function(e) {
@@ -120,6 +113,14 @@
 
     _getPct: function(currentWidth, total) {
       return Math.round(parseInt(currentWidth * 100) / parseInt(total));
+    },
+
+    _resize: function(offset, params) {
+      if (offset < 0) {
+        this._shrinkPrevious(params);
+      } else {
+        this._shrinkNext(params);
+      }
     },
 
     _shrinkPrevious: function(params) {
