@@ -16,6 +16,11 @@
       _childrens: {
         type: Array,
         value: null
+      },
+
+      _draggingDirection: {
+        type: String,
+        computed: '_setDraggingDirection(vertical, _childrens)'
       }
     },
 
@@ -23,14 +28,26 @@
       track: '_trackHandler'
     },
 
-    // observers: [
-    //   '_setDraggingDirection(vertical, _childrens)'
-    // ],
+    observers: [
+      '_verticalObserver(_draggingDirection, _childrens)'
+    ],
 
     attached: function() {
       this._childrens = Polymer.dom(this).children;
       this._childCount = this._childrens.length;
       this._childrens.forEach(this._addKnobs.bind(this));
+    },
+
+    _setDraggingDirection: function(vertical, _childrens) {
+      if (_childrens) {
+        return vertical ? 'vertical' : 'horizontal';
+      }
+    },
+
+    _verticalObserver: function(_draggingDirection, _childrens) {
+      if (_draggingDirection === 'vertical' && _childrens) {
+        this.style.height = this.getBoundingClientRect().height + 'px';
+      }
     },
 
     _addKnobs: function(panel, index) {
@@ -72,11 +89,23 @@
       this._nextSiblingDimensions = this._nextSiblingDimensions || next.getBoundingClientRect();
       this._previousSiblingDimensions = this._previousSiblingDimensions || previous.getBoundingClientRect();
       this._totalWidth = this._totalWidth || e.currentTarget.getBoundingClientRect().width;
+      this._totalHeight = this._totalHeight || e.currentTarget.getBoundingClientRect().height;
 
-      if (e.detail.dx < 0) {
-        this._shrinkLeft(e, previous, next);
+      var hParams = { previous: previous, next: next, styleProperty: 'width', total: this._totalWidth, offset: Math.abs(e.detail.dx) };
+      var vParams = { previous: previous, next: next, styleProperty: 'height', total: this._totalHeight, offset: Math.abs(e.detail.dy) };
+
+      if (this._draggingDirection === 'horizontal') {
+        if (e.detail.dx < 0) {
+          this._shrinkPrevious(hParams);
+        } else {
+          this._shrinkNext(hParams);
+        }
       } else {
-        this._shrinkRight(e, previous, next);
+        if (e.detail.dy < 0) {
+          this._shrinkPrevious(vParams);
+        } else {
+          this._shrinkNext(vParams);
+        }
       }
     },
 
@@ -85,6 +114,7 @@
       this._nextSiblingDimensions = null;
       this._previousSiblingDimensions = null;
       this._totalWidth = null;
+      this._totalHeight = null;
       window.getSelection().removeAllRanges();
     },
 
@@ -92,14 +122,14 @@
       return Math.round(parseInt(currentWidth * 100) / parseInt(total));
     },
 
-    _shrinkLeft: function(e, previous, next) {
-      previous.style.cssText = 'width: calc(' + this._getPct(this._previousSiblingDimensions.width, this._totalWidth) + '% - ' + Math.abs(e.detail.dx) + 'px); flex-shrink: 0;';
-      next.style.cssText     = 'width: calc(' + this._getPct(this._nextSiblingDimensions.width,     this._totalWidth) + '% + ' + Math.abs(e.detail.dx) + 'px); flex-shrink: 0;';
+    _shrinkPrevious: function(params) {
+      params.previous.style.cssText = params.styleProperty + ': calc(' + this._getPct(this._previousSiblingDimensions[params.styleProperty], params.total) + '% - ' + params.offset + 'px); flex-shrink: 0;';
+      params.next.style.cssText     = params.styleProperty + ': calc(' + this._getPct(this._nextSiblingDimensions[params.styleProperty],     params.total) + '% + ' + params.offset + 'px); flex-shrink: 0;';
     },
 
-    _shrinkRight: function(e, previous, next) {
-      previous.style.cssText = 'width: calc(' + this._getPct(this._previousSiblingDimensions.width, this._totalWidth) + '% + ' + Math.abs(e.detail.dx) + 'px); flex-shrink: 0;';
-      next.style.cssText     = 'width: calc(' + this._getPct(this._nextSiblingDimensions.width,     this._totalWidth) + '% - ' + Math.abs(e.detail.dx) + 'px); flex-shrink: 0;';
+    _shrinkNext: function(params) {
+      params.previous.style.cssText = params.styleProperty + ': calc(' + this._getPct(this._previousSiblingDimensions[params.styleProperty], params.total) + '% + ' + params.offset + 'px); flex-shrink: 0;';
+      params.next.style.cssText     = params.styleProperty + ': calc(' + this._getPct(this._nextSiblingDimensions[params.styleProperty],     params.total) + '% - ' + params.offset + 'px); flex-shrink: 0;';
     }
 
   });
