@@ -12,7 +12,7 @@
     "panel"
   ],
   "main": "resizable-panels.html",
-  "license": "http://polymer.github.io/LICENSE.txt",
+  "license": "https://github.com/kcmr/resizable-panels/LICENSE.md",
   "homepage": "https://github.com/kcmr/resizable-panels/",
   "ignore": [],
   "dependencies": {

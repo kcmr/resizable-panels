@@ -1,61 +1,53 @@
 # resizable-panels
 
-An element providing a starting point for your own reusable Polymer elements.
+`<resizable-panels>` allows to resize the width (default) or the height (vertical mode) of the component childrens.
 
+Example:
 
-## Dependencies
+    <resizable-panels>
+      <div>Lorem ipsum dolor…</div>
+      <div>Second panel</div>
+      <div>Third panel</div>
+    </resizable-panels>
 
-Element dependencies are managed via [Bower](http://bower.io/). You can
-install that via:
+Vertical mode:
 
-    npm install -g bower
+    <resizable-panels vertical>
+      <div>Lorem ipsum dolor…</div>
+      <div>Second panel</div>
+      <div>Third panel</div>
+    </resizable-panels>
 
-Then, go ahead and download the element's dependencies:
+## Styling
 
-    bower install
+The following custom CSS properties are available for styling:
 
+| Custom property                | Description                             | Default     |
+|:-------------------------------|:----------------------------------------|------------:|
+| --resizable-panels-knob-size   | width (default) or height of the knobs  | 4px         |
+| --resizable-panels-knob-color  | background color of the knobs           | transparent |
+| --resizable-panels-knob        | Mixin applied to the knob               | {}          |
 
-## Playing With Your Element
+## Install
 
-If you wish to work on your element in isolation, we recommend that you use
-[Polyserve](https://github.com/PolymerLabs/polyserve) to keep your element's
-bower dependencies in line. You can install it via:
+Install the component using [Bower](http://bower.io/):
 
-    npm install -g polyserve
+```bash
+$ bower install transburger-icon --save
+```
 
-And you can run it via:
+## Usage
 
-    polyserve
+Import Web Components polyfill:
 
-Once running, you can preview your element at
-`http://localhost:8080/components/resizable-panels/`, where `resizable-panels` is the name of the directory containing it.
+```js
+<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+```
 
+Import Custom Element:
 
-## Testing Your Element
+```html
+<link rel="import" href="bower_components/transburger-icon/transburger-icon.html"> 
+```
 
-Simply navigate to the `/test` directory of your element to run its tests. If
-you are using Polyserve: `http://localhost:8080/components/resizable-panels/test/`
-
-### web-component-tester
-
-The tests are compatible with [web-component-tester](https://github.com/Polymer/web-component-tester).
-Install it via:
-
-    npm install -g web-component-tester
-
-Then, you can run your tests on _all_ of your local browsers via:
-
-    wct
-
-#### WCT Tips
-
-`wct -l chrome` will only run tests in chrome.
-
-`wct -p` will keep the browsers alive after test runs (refresh to re-run).
-
-`wct test/some-file.html` will test only the files you specify.
-
-
-## Yeoman support
-
-If you'd like to use Yeoman to scaffold your element that's possible. The official [`generator-polymer`](https://github.com/yeoman/generator-polymer) generator has a [`seed`](https://github.com/yeoman/generator-polymer#seed) subgenerator.
+Use it!
