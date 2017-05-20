@@ -42,7 +42,6 @@
 
     attached: function() {
       this._childrens = Polymer.dom(this).children;
-      this._childCount = this._childrens.length;
       this._childrens.forEach(this._addKnobs.bind(this));
     },
 
