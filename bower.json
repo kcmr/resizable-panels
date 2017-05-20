@@ -1,5 +1,6 @@
 {
   "name": "resizable-panels",
+  "version": "0.1.2",
   "authors": [
     "Kus Cámara <kus.camara@gmail.com>"
   ],
@@ -13,6 +14,10 @@
   "main": "resizable-panels.html",
   "license": "https://github.com/kcmr/resizable-panels/LICENSE.md",
   "homepage": "https://github.com/kcmr/resizable-panels/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kcmr/resizable-panels.git"
+  },
   "ignore": [],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.8.0"
@@ -22,5 +27,8 @@
     "web-component-tester": "^4.0.0",
     "iron-test-helpers": "PolymerElements/iron-test-helpers#^2.0.0",
     "syntax-highlight": "1000ch/syntax-highlight#^1.0.0"
+  },
+  "resolutions": {
+    "webcomponentsjs": "^0.7.20"
   }
 }
