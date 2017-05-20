@@ -7,7 +7,7 @@
     <script>window.Polymer = { dom: 'shadow', lazyRegister: true, useNativeCSSProperties: true };</script>
     <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
     <link rel="import" href="../resizable-panels.html">
-    <link rel="import" href="../../syntax-highlight/syntax-highlight.html">
+    <link rel='import' href='https://cdn.rawgit.com/ChristianKohler/PrismComponents/master/dist/prism-components.html'>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400|Roboto+Mono" rel="stylesheet">
     <style>
       body {
@@ -60,14 +60,18 @@
         height: 120px;
       }
 
-      resizable-panels syntax-highlight {
+      pre { margin: 4px 0 0; }
+      .demo pre /deep/ pre { margin: 0; }
+      resizable-panels pre {
         width: 50%;
-        background-color: #002451;
+        background-color: #f5f2f0;
       }
 
-      syntax-highlight { margin-top: 4px; }
-      syntax-highlight /deep/ pre { margin: 0; }
-      syntax-highlight /deep/ code { font-family: 'Roboto Mono', monaco, consolas, monospace; }
+      .code {
+        width: 100%;
+        overflow: hidden;
+      }
+
     </style>
   </head>
   <body unresolved>
@@ -80,13 +84,12 @@
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam perferendis cupiditate consequuntur veritatis labore neque, maxime ea voluptatem dolorum provident, aut ipsa sed enim sit necessitatibus, tempore nisi non animi?
         </div>
       </resizable-panels>
-<syntax-highlight lang="html" theme="tomorrow-night-blue">
-  <resizable-panels>
-    <div class="main">Lorem...</div>
-    <div class="sidebar">Lorem ipsum...</div>
-  </resizable-panels>
-
-</syntax-highlight>
+  <pre is="lang-markup">
+  &lt;resizable-panels&gt;
+    &lt;div class=&quot;main&quot;&gt;Lorem...&lt;/div&gt;
+    &lt;div class=&quot;sidebar&quot;&gt;Lorem ipsum...&lt;/div&gt;
+  &lt;/resizable-panels&gt;
+  </pre>
     </div>
 
     <div class="demo">
@@ -98,19 +101,17 @@
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam perferendis cupiditate consequuntur veritatis labore neque, maxime ea voluptatem dolorum provident, aut ipsa sed enim sit necessitatibus, tempore nisi non animi?
         </div>
       </resizable-panels>
-      <resizable-panels>
-<syntax-highlight lang="html" theme="tomorrow-night-blue">
-  <resizable-panels>
-    <div class="main">Lorem...</div>
-    <div class="sidebar">Lorem ipsum...</div>
-  </resizable-panels>
-
-</syntax-highlight>
-<syntax-highlight lang="css" theme="tomorrow-night-blue">
+      <resizable-panels class="code">
+<pre is="lang-markup">
+  &lt;resizable-panels&gt;
+    &lt;div class=&quot;main&quot;&gt;Lorem...&lt;/div&gt;
+    &lt;div class=&quot;sidebar&quot;&gt;Lorem ipsum...&lt;/div&gt;
+  &lt;/resizable-panels&gt;
+</pre>
+<pre is="lang-css">
   .w60 { width: 60%; }
   .w40 { width: 40%; }
-
-</syntax-highlight>
+</pre>
       </resizable-panels>
     </div>
 
@@ -121,14 +122,13 @@
         <div class="panel p2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed sapiente, veniam sint amet excepturi temporibus impedit praesentium fugit perspiciatis pariatur ab provident totam sequi nemo, corporis, placeat doloremque, accusamus?</div>
         <div class="panel p3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed sapiente, veniam sint amet excepturi temporibus impedit praesentium fugit perspiciatis pariatur ab provident totam sequi nemo, corporis, placeat doloremque, accusamus?</div>
       </resizable-panels>
-<syntax-highlight lang="html" theme="tomorrow-night-blue">
-  <resizable-panels>
-    <div class="panel p1">Lorem...</div>
-    <div class="panel p2">Lorem...</div>
-    <div class="panel p3">Lorem...</div>
-  </resizable-panels>
-
-</syntax-highlight>
+<pre is="lang-markup">
+  &lt;resizable-panels&gt;
+    &lt;div class=&quot;panel p1&quot;&gt;Lorem...&lt;/div&gt;
+    &lt;div class=&quot;panel p2&quot;&gt;Lorem...&lt;/div&gt;
+    &lt;div class=&quot;panel p3&quot;&gt;Lorem...&lt;/div&gt;
+  &lt;/resizable-panels&gt;
+</pre>
     </div>
 
     <div class="demo">
@@ -141,21 +141,19 @@
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias magnam magni modi illum, ab! Repellat ipsa, iure accusantium delectus numquam animi saepe, aut nemo, mollitia odio minus. Et, architecto ut!</p>
         </div>
       </resizable-panels>
-      <resizable-panels>
-<syntax-highlight lang="html" theme="tomorrow-night-blue">
-  <resizable-panels vertical>
-    <div class="panel p4">Lorem...</div>
-    <div class="panel p5">Lorem...</div>
-    <div class="panel p6">Lorem...</div>
-  </resizable-panels>
-
-</syntax-highlight>
-<syntax-highlight lang="css" theme="tomorrow-night-blue">
+      <resizable-panels class="code">
+<pre is="lang-markup">
+  &lt;resizable-panels vertical&gt;
+    &lt;div class=&quot;panel p4&quot;&gt;Lorem...&lt;/div&gt;
+    &lt;div class=&quot;panel p5&quot;&gt;Lorem...&lt;/div&gt;
+    &lt;div class=&quot;panel p6&quot;&gt;Lorem...&lt;/div&gt;
+  &lt;/resizable-panels&gt;
+</pre>
+<pre is="lang-css">
   resizable-panels[vertical] .panel {
     height: 120px;
   }
-
-</syntax-highlight>
+</pre>
       </resizable-panels>
     </div>
   </body>
