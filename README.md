@@ -4,19 +4,22 @@
 
 Example:
 
+```html
     <resizable-panels>
       <div>Lorem ipsum dolor…</div>
       <div>Second panel</div>
       <div>Third panel</div>
     </resizable-panels>
-
+```
 Vertical mode:
 
+```html
     <resizable-panels vertical>
       <div>Lorem ipsum dolor…</div>
       <div>Second panel</div>
       <div>Third panel</div>
     </resizable-panels>
+```
 
 ## Styling
 
