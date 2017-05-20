@@ -1,12 +1,12 @@
 # resizable-panels
-
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg?style=flat-square)](https://www.webcomponents.org/element/kcmr/resizable-panels)
 [![Component's Demo](resizable-panels.png)](https://kcmr.github.io/resizable-panels/components/resizable-panels/demo/index.html)
 
 `<resizable-panels>` allows to resize the width (default) or the height (vertical mode) of the component childrens.
 
 <!---
 ```html
-<resizable-panels>
+<custom-element-demo>
   <template>
     <script src="../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="resizable-panels.html">
@@ -17,7 +17,7 @@
     </style>
     <next-code-block></next-code-block>
   </template>
-</resizable-panels>
+</custom-element-demo>
 ```
 -->  
 ```html
