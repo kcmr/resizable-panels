@@ -23,10 +23,11 @@ Vertical mode:
 
 The following custom CSS properties are available for styling:
 
-| Custom property                | Description                             | Default   |
-|:-------------------------------|:----------------------------------------|----------:|
-| --resizable-panels-knob-size   | width (default) or height of the knobs  | 4px       |
-| --resizable-panels-knob-color  | background color of the knobs           | #888      | 
+| Custom property                | Description                             | Default     |
+|:-------------------------------|:----------------------------------------|------------:|
+| --resizable-panels-knob-size   | width (default) or height of the knobs  | 4px         |
+| --resizable-panels-knob-color  | background color of the knobs           | transparent |
+| --resizable-panels-knob        | Mixin applied to the knob               | {}          |
 
 @demo demo/index.html
 -->
@@ -54,15 +55,16 @@ The following custom CSS properties are available for styling:
 
       ::slotted(.knob) {
         width: var(--resizable-panels-knob-size, 4px);
-        background-color: var(--resizable-panels-knob-color, #888);
-        cursor: ew-resize;
+        background-color: var(--resizable-panels-knob-color, transparent);
+        cursor: col-resize;
         flex-shrink: 0;
+        @apply(--resizable-panels-knob);
       }
 
       :host([vertical]) ::slotted(.knob) {
         width: 100%;
         height: var(--resizable-panels-knob-size, 4px);
-        cursor: ns-resize;
+        cursor: row-resize;
       }
 
       :host(.dragging) ::slotted(*) {
