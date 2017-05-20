@@ -55,7 +55,11 @@ The following custom CSS properties are available for styling:
 
       ::slotted(.knob) {
         width: var(--resizable-panels-knob-size, 4px);
-        background-color: var(--resizable-panels-knob-color, transparent);
+        margin-left: calc(var(--resizable-panels-knob-size, 4px) / 2 * -1);
+        margin-right: calc(var(--resizable-panels-knob-size, 4px) / 2 * -1);
+        position: relative;
+        z-index: 1;
+        background-color: var(--resizable-panels-knob-color, #fff);
         cursor: col-resize;
         flex-shrink: 0;
         @apply(--resizable-panels-knob);
@@ -64,6 +68,10 @@ The following custom CSS properties are available for styling:
       :host([vertical]) ::slotted(.knob) {
         width: 100%;
         height: var(--resizable-panels-knob-size, 4px);
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: calc(var(--resizable-panels-knob-size, 4px) / 2 * -1);
+        margin-bottom: calc(var(--resizable-panels-knob-size, 4px) / 2 * -1);
         cursor: row-resize;
       }
 
