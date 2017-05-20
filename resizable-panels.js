@@ -6,6 +6,9 @@
     is: 'resizable-panels',
 
     properties: {
+      /**
+       * Vertical resizing. Default is horizontal.
+       */
       vertical: {
         type: Boolean,
         value: false,
@@ -86,8 +89,8 @@
       var next = Polymer.dom(e).localTarget.nextElementSibling;
       var previous = Polymer.dom(e).localTarget.previousElementSibling;
 
-      this._nextSiblingDimensions = this._nextSiblingDimensions || next.getBoundingClientRect();
-      this._previousSiblingDimensions = this._previousSiblingDimensions || previous.getBoundingClientRect();
+      this._nextSiblingDimensions = this._nextSiblingDimensions || this._computeDimensionsWithoutPadding(next);
+      this._previousSiblingDimensions = this._previousSiblingDimensions || this._computeDimensionsWithoutPadding(previous);
       this._totalWidth = this._totalWidth || e.currentTarget.getBoundingClientRect().width;
       this._totalHeight = this._totalHeight || e.currentTarget.getBoundingClientRect().height;
 
@@ -100,6 +103,16 @@
       };
 
       this._resize(resizeParams.offset, resizeParams.params);
+    },
+
+    _computeDimensionsWithoutPadding: function(node) {
+      var bcr = node.getBoundingClientRect();
+      var cs = window.getComputedStyle(node);
+
+      return {
+        width: bcr.width - (parseInt(cs.paddingLeft) + parseInt(cs.paddingRight)),
+        height: bcr.height - (parseInt(cs.paddingTop) + parseInt(cs.paddingBottom))
+      };
     },
 
     _onTrackEnd: function(e) {
