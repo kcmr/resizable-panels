@@ -24,6 +24,11 @@
       _draggingDirection: {
         type: String,
         computed: '_setDraggingDirection(vertical, _childrens)'
+      },
+
+      _draggingOut: {
+        type: Boolean,
+        value: false
       }
     },
 
@@ -76,11 +81,14 @@
     },
 
     _onTrackStart: function(e) {
+      this._draggingOut = false;
+      this.listen(this, 'mouseleave', '_onMouseLeave');
+      this.listen(this, 'mouseenter', '_onMouseEnter');
       window.getSelection().removeAllRanges();
     },
 
     _onTrack: function(e) {
-      if (!this._isKnob(e)) {
+      if (!this._isKnob(e) || this._draggingOut) {
         return;
       }
 
@@ -105,6 +113,14 @@
       this._resize(resizeParams.offset, resizeParams.params);
     },
 
+    _onMouseLeave: function(e) {
+      this._draggingOut = true;
+    },  
+
+    _onMouseEnter: function() {
+      this._draggingOut = false;
+    },
+
     _computeDimensionsWithoutPadding: function(node) {
       var bcr = node.getBoundingClientRect();
       var cs = window.getComputedStyle(node);
@@ -121,7 +137,10 @@
       this._previousSiblingDimensions = null;
       this._totalWidth = null;
       this._totalHeight = null;
+      this._removeResizingClass();
       window.getSelection().removeAllRanges();
+      this.unlisten(this, 'mouseleave', '_onMouseLeave');
+      this.unlisten(this, 'mouseenter', '_onMouseEnter');
     },
 
     _getPct: function(currentWidth, total) {
@@ -134,16 +153,29 @@
       } else {
         this._shrinkNext(params);
       }
+      this._addResizingClass(params);
     },
 
     _shrinkPrevious: function(params) {
-      params.previous.style.cssText = params.styleProperty + ': calc(' + this._getPct(this._previousSiblingDimensions[params.styleProperty], params.total) + '% - ' + params.offset + 'px); flex-shrink: 0;';
-      params.next.style.cssText     = params.styleProperty + ': calc(' + this._getPct(this._nextSiblingDimensions[params.styleProperty],     params.total) + '% + ' + params.offset + 'px); flex-shrink: 0;';
+      params.previous.style.cssText = params.styleProperty + ': calc(' + this._getPct(this._previousSiblingDimensions[params.styleProperty], params.total) + '% - ' + params.offset + 'px);';
+      params.next.style.cssText     = params.styleProperty + ': calc(' + this._getPct(this._nextSiblingDimensions[params.styleProperty],     params.total) + '% + ' + params.offset + 'px);';
     },
 
     _shrinkNext: function(params) {
-      params.previous.style.cssText = params.styleProperty + ': calc(' + this._getPct(this._previousSiblingDimensions[params.styleProperty], params.total) + '% + ' + params.offset + 'px); flex-shrink: 0;';
-      params.next.style.cssText     = params.styleProperty + ': calc(' + this._getPct(this._nextSiblingDimensions[params.styleProperty],     params.total) + '% - ' + params.offset + 'px); flex-shrink: 0;';
+      params.previous.style.cssText = params.styleProperty + ': calc(' + this._getPct(this._previousSiblingDimensions[params.styleProperty], params.total) + '% + ' + params.offset + 'px);';
+      params.next.style.cssText     = params.styleProperty + ': calc(' + this._getPct(this._nextSiblingDimensions[params.styleProperty],     params.total) + '% - ' + params.offset + 'px);';
+    },
+
+    _addResizingClass: function(params) {
+      [params.previous, params.next].forEach(function(node) {
+        node.classList.add('resizing');
+      });
+    },
+
+    _removeResizingClass: function() {
+      this._childrens.forEach(function(children) {
+        children.classList.remove('resizing');
+      });
     }
 
   });
