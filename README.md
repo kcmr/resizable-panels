@@ -36,7 +36,7 @@ The following custom CSS properties are available for styling:
 Install the component using [Bower](http://bower.io/):
 
 ```bash
-$ bower install transburger-icon --save
+$ bower i -S kcmr/resizable-panels
 ```
 
 ## Usage
@@ -50,7 +50,7 @@ Import Web Components polyfill:
 Import Custom Element:
 
 ```html
-<link rel="import" href="bower_components/transburger-icon/transburger-icon.html"> 
+<link rel="import" href="bower_components/resizable-panels/resizable-panels.html"> 
 ```
 
 Use it!
