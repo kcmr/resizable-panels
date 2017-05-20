@@ -1,20 +1,34 @@
 <link rel="import" href="../polymer/polymer.html">
 
 <!--
-An element providing a solution to no problem in particular.
-
-Example:
-
-    <resizable-panels></resizable-panels>
+`<resizable-panels>` allows to resize the width (default) or the height (vertical mode) of the component childrens.
 
 Example:
 
     <resizable-panels>
-      <h2>Hello resizable-panels</h2>
+      <div>Lorem ipsum dolor…</div>
+      <div>Second panel</div>
+      <div>Third panel</div>
     </resizable-panels>
 
+Vertical mode:
+
+    <resizable-panels vertical>
+      <div>Lorem ipsum dolor…</div>
+      <div>Second panel</div>
+      <div>Third panel</div>
+    </resizable-panels>
+
+## Styling
+
+The following custom CSS properties are available for styling:
+
+| Custom property                | Description                             | Default   |
+|:-------------------------------|:----------------------------------------|----------:|
+| --resizable-panels-knob-size   | width (default) or height of the knobs  | 4px       |
+| --resizable-panels-knob-color  | background color of the knobs           | #888      | 
+
 @demo demo/index.html
-@hero hero.svg
 -->
 
 <dom-module id="resizable-panels">
