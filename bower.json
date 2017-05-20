@@ -2,9 +2,9 @@
   "name": "resizable-panels",
   "version": "0.0.0",
   "authors": [
-    "Kus Cámara <anonymous@example.com>"
+    "Kus Cámara <kus.camara@gmail.com>"
   ],
-  "description": "An element providing a solution to no problem in particular.",
+  "description": "Allows to resize horizontally or vertically its childrens",
   "keywords": [
     "web-component",
     "polymer",
@@ -21,6 +21,7 @@
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
     "web-component-tester": "^4.0.0",
-    "iron-test-helpers": "PolymerElements/iron-test-helpers#^2.0.0"
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#^2.0.0",
+    "syntax-highlight": "1000ch/syntax-highlight#^1.0.0"
   }
 }
