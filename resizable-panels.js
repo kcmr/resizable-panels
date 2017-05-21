@@ -24,11 +24,6 @@
       _draggingDirection: {
         type: String,
         computed: '_setDraggingDirection(vertical, _childrens)'
-      },
-
-      _draggingOut: {
-        type: Boolean,
-        value: false
       }
     },
 
