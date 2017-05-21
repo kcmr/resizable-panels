@@ -44,7 +44,7 @@ The following custom CSS properties are available for styling:
 | Custom property                | Description                             | Default     |
 |:-------------------------------|:----------------------------------------|------------:|
 | --resizable-panels-knob-size   | width (default) or height of the knobs  | 4px         |
-| --resizable-panels-knob-color  | background color of the knobs           | transparent |
+| --resizable-panels-knob-color  | background color of the knobs           | #fff        |
 | --resizable-panels-knob        | Mixin applied to the knob               | {}          |
 
 ## Demo
