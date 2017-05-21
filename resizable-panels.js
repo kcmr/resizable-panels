@@ -38,10 +38,10 @@ class ResizablePanels extends Polymer.GestureEventListeners(Polymer.Element) {
   connectedCallback() {
     super.connectedCallback();
     Polymer.Gestures.addListener(this, 'track', e => this._trackHandler(e));
-    Polymer.RenderStatus.afterNextRender(this, function() {
+    setTimeout(function() {
       this._childrens = [].filter.call(this.childNodes, (node) => node.nodeType === Node.ELEMENT_NODE);
       [].forEach.call(this._childrens, this._addKnobs.bind(this));
-    });
+    }.bind(this), 16);
   }
 
   _setDraggingDirection(vertical, _childrens) {
