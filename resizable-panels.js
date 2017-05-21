@@ -58,7 +58,7 @@ class ResizablePanels extends Polymer.GestureEventListeners(Polymer.Element) {
 
   _addKnobs(panel, index) {
     if (index > 0) {
-      var knob = document.createElement('div');
+      let knob = document.createElement('div');
       knob.classList.add('knob', 'knob-panel-' + index);
       this.insertBefore(knob, panel);
     }
@@ -69,7 +69,7 @@ class ResizablePanels extends Polymer.GestureEventListeners(Polymer.Element) {
   }
 
   _trackHandler(e) {
-    var state = {
+    let state = {
       'start': this._onTrackStart.bind(this),
       'track': this._onTrack.bind(this),
       'end': this._onTrackEnd.bind(this)
@@ -89,18 +89,18 @@ class ResizablePanels extends Polymer.GestureEventListeners(Polymer.Element) {
 
     this.classList.add('dragging');
 
-    var next = e.target.nextElementSibling;
-    var previous = e.target.previousElementSibling;
+    let next = e.target.nextElementSibling;
+    let previous = e.target.previousElementSibling;
 
     this._nextSiblingDimensions = this._nextSiblingDimensions || this._computeDimensionsWithoutPadding(next);
     this._previousSiblingDimensions = this._previousSiblingDimensions || this._computeDimensionsWithoutPadding(previous);
     this._totalWidth = this._totalWidth || e.currentTarget.getBoundingClientRect().width;
     this._totalHeight = this._totalHeight || e.currentTarget.getBoundingClientRect().height;
 
-    var hParams = { previous: previous, next: next, styleProperty: 'width', total: this._totalWidth, offset: Math.abs(e.detail.dx) };
-    var vParams = { previous: previous, next: next, styleProperty: 'height', total: this._totalHeight, offset: Math.abs(e.detail.dy) };
+    let hParams = { previous: previous, next: next, styleProperty: 'width', total: this._totalWidth, offset: Math.abs(e.detail.dx) };
+    let vParams = { previous: previous, next: next, styleProperty: 'height', total: this._totalHeight, offset: Math.abs(e.detail.dy) };
 
-    var resizeParams = {
+    let resizeParams = {
       offset: this._draggingDirection === 'horizontal' ? e.detail.dx : e.detail.dy,
       params: this._draggingDirection === 'horizontal' ? hParams : vParams
     };
@@ -109,8 +109,8 @@ class ResizablePanels extends Polymer.GestureEventListeners(Polymer.Element) {
   }
 
   _computeDimensionsWithoutPadding(node) {
-    var bcr = node.getBoundingClientRect();
-    var cs = window.getComputedStyle(node);
+    let bcr = node.getBoundingClientRect();
+    let cs = window.getComputedStyle(node);
 
     return {
       width: bcr.width - (parseInt(cs.paddingLeft) + parseInt(cs.paddingRight)),
