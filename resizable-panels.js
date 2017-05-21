@@ -83,7 +83,11 @@
         return;
       }
 
-      this.classList.add('dragging');
+      if (!this._eventFired) {
+        this.fire('resizing', { state: 'start' });
+        this.classList.add('dragging');
+        this._eventFired = true;
+      }
 
       var next = Polymer.dom(e).localTarget.nextElementSibling;
       var previous = Polymer.dom(e).localTarget.previousElementSibling;
@@ -120,7 +124,8 @@
       this._previousSiblingDimensions = null;
       this._totalWidth = null;
       this._totalHeight = null;
-      window.getSelection().removeAllRanges();
+      this._eventFired = false;
+      this.fire('resizing', { state: 'end' });
     },
 
     _getPct: function(currentWidth, total) {
@@ -153,6 +158,12 @@
         params.previous.style.cssText = params.styleProperty + ': calc(' + this._getPct(this._previousSiblingDimensions[params.styleProperty], params.total) + '% + ' + params.offset + 'px); flex-shrink: 0;';
       }
     }
+
+    /**
+     * Fired when the panels are resized and when the resize ends
+     * @event resizing
+     * @param {Object} detail 'state' Can be 'start' or 'end'
+     */
   });
 
 }(Polymer));
