@@ -77,7 +77,7 @@ The following custom CSS properties are available for styling:
         @apply --resizable-panels-knob;
       }
 
-      :host(.dragging) ::slotted(*) {
+      :host(.dragging) ::slotted(*:not(.knob)) {
         pointer-events: none;
         -webkit-user-select: none;
         -moz-user-select: none;
