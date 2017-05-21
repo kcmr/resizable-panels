@@ -40,8 +40,8 @@ Vertical mode:
 ## Events
 
 - `resizing`: 
-Fired when the panels are resized and when the resize ends.
-@params {detail} Object { state: start|end }
+Fired when the panels are resized and when the resize ends.   
+@param {Object} detail { state: start|end }
 
 
 ## Styling

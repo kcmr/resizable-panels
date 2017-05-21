@@ -25,9 +25,5 @@
   "devDependencies": {
     "web-component-tester": "^6.0.0",
     "iron-test-helpers": "PolymerElements/iron-test-helpers#^2.0.0"
-  },
-  "resolutions": {
-    "webcomponentsjs": "^1.0.0",
-    "polymer": "^2.0.0"
   }
 }
