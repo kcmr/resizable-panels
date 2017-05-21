@@ -118,8 +118,27 @@
        * Add a height to the container in vertical mode and remove previous inline styles added to childrens
        */
       _verticalObserver(_draggingDirection, _childrens) {
-        this.style.height = _draggingDirection === 'vertical' ? this.getBoundingClientRect().height + 'px' : '';
-        [].forEach.call(this._childrens, (children) => { children.removeAttribute('style'); });
+        if (_draggingDirection === 'vertical') {
+          this._draggingDirectionChanged = true;
+        }
+
+        if (this._draggingDirectionChanged) {
+          [].forEach.call(this._childrens, (children) => {
+            this._resetPanelStyles(children, _draggingDirection === 'vertical' ? 'width' : 'height');
+          });
+
+          if (_draggingDirection === 'vertical') {
+            this.style.height = 'auto'; // force to get its full height
+            this._height = this.getBoundingClientRect().height;
+          }
+
+          this.style.height = _draggingDirection === 'vertical' ? `${this._height}px` : '';
+        }
+      }
+
+      _resetPanelStyles(panel, styleProperty) {
+        panel.style[styleProperty] = '';
+        panel.style['flex-shrink'] = '';
       }
 
       _addKnobs(panel, index) {
@@ -234,7 +253,8 @@
 
       _changeSize(elem, dimensions, params, operator) {
         let pct = this._getPct(dimensions[params.styleProperty], params.total);
-        elem.style.cssText = `${params.styleProperty}: calc(${pct}% ${operator} ${params.offset}px); flex-shrink: 0;`;
+        elem.style[params.styleProperty] = `calc(${pct}% ${operator} ${params.offset}px)`;
+        elem.style['flex-shrink'] = 0;
       }
 
       /**
