@@ -174,7 +174,7 @@ class ResizablePanels extends Polymer.GestureEventListeners(Polymer.Element) {
   /**
    * Fired when the panels are resized and when the resize ends
    * @event resizing
-   * @params {detail} Object 'state' (start / end)
+   * @param {Object} detail 'state' Can be 'start' or 'end'
    */
 }
 
