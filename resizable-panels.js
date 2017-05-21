@@ -1,11 +1,8 @@
-(function(Polymer) {
+class ResizablePanels extends Polymer.GestureEventListeners(Polymer.Element) {
+  static get is() { return 'resizable-panels' }
 
-  'use strict';
-
-  Polymer({
-    is: 'resizable-panels',
-
-    properties: {
+  static get properties() {
+    return {
       /**
        * Vertical resizing. Default is horizontal.
        */
@@ -25,147 +22,160 @@
         type: String,
         computed: '_setDraggingDirection(vertical, _childrens)'
       }
-    },
+    }
+  }
 
-    listeners: {
-      track: '_trackHandler'
-    },
-
-    observers: [
+  static get observers() {
+    return [
       '_verticalObserver(_draggingDirection, _childrens)'
-    ],
+    ]
+  }
 
-    attached: function() {
-      this._childrens = Polymer.dom(this).children;
-      this._childrens.forEach(this._addKnobs.bind(this));
-    },
+  constructor() {
+    super();
+  }
 
-    _setDraggingDirection: function(vertical, _childrens) {
-      if (_childrens) {
-        return vertical ? 'vertical' : 'horizontal';
-      }
-    },
+  connectedCallback() {
+    super.connectedCallback();
+    Polymer.Gestures.addListener(this, 'track', e => this._trackHandler(e));
+    setTimeout(function() {
+      this._childrens = [].filter.call(this.childNodes, (node) => node.nodeType === Node.ELEMENT_NODE);
+      [].forEach.call(this._childrens, this._addKnobs.bind(this));
+    }.bind(this), 1);
+  }
 
-    _verticalObserver: function(_draggingDirection, _childrens) {
-      if (_draggingDirection === 'vertical' && _childrens) {
-        this.style.height = this.getBoundingClientRect().height + 'px';
-      }
-    },
+  _setDraggingDirection(vertical, _childrens) {
+    if (_childrens) {
+      return vertical ? 'vertical' : 'horizontal';
+    }
+  }
 
-    _addKnobs: function(panel, index) {
-      if (index > 0) {
-        var knob = document.createElement('div');
-        knob.classList.add('knob', 'knob-panel-' + index);
-        Polymer.dom(this).insertBefore(knob, panel);
-      }
-    },
+  _verticalObserver(_draggingDirection, _childrens) {
+    if (_draggingDirection === 'vertical' && _childrens) {
+      this.style.height = this.getBoundingClientRect().height + 'px';
+    }
+  }
 
-    _isKnob: function(e) {
-      return Polymer.dom(e).localTarget.className.indexOf('knob-panel-') >= 0;
-    },
+  _addKnobs(panel, index) {
+    if (index > 0) {
+      let knob = document.createElement('div');
+      knob.classList.add('knob', 'knob-panel-' + index);
+      this.insertBefore(knob, panel);
+    }
+  }
 
-    _trackHandler: function(e) {
-      var state = {
-        'start': this._onTrackStart.bind(this),
-        'track': this._onTrack.bind(this),
-        'end': this._onTrackEnd.bind(this)
-      };
+  _isKnob(e) {
+    return e.target.className.indexOf('knob-panel-') >= 0;
+  }
 
-      state[e.detail.state](e);
-    },
+  _trackHandler(e) {
+    let state = {
+      'start': this._onTrackStart.bind(this),
+      'track': this._onTrack.bind(this),
+      'end': this._onTrackEnd.bind(this)
+    };
 
-    _onTrackStart: function(e) {
-      window.getSelection().removeAllRanges();
-    },
+    state[e.detail.state](e);
+  }
 
-    _onTrack: function(e) {
-      if (!this._isKnob(e)) {
-        return;
-      }
+  _onTrackStart(e) {
+    window.getSelection().removeAllRanges();
+  }
 
-      if (!this._eventFired) {
-        this.fire('resizing', { state: 'start' });
-        this.classList.add('dragging');
-        this._eventFired = true;
-      }
-
-      var next = Polymer.dom(e).localTarget.nextElementSibling;
-      var previous = Polymer.dom(e).localTarget.previousElementSibling;
-
-      this._nextSiblingDimensions = this._nextSiblingDimensions || this._computeDimensionsWithoutPadding(next);
-      this._previousSiblingDimensions = this._previousSiblingDimensions || this._computeDimensionsWithoutPadding(previous);
-      this._totalWidth = this._totalWidth || e.currentTarget.getBoundingClientRect().width;
-      this._totalHeight = this._totalHeight || e.currentTarget.getBoundingClientRect().height;
-
-      var hParams = { previous: previous, next: next, styleProperty: 'width', total: this._totalWidth, offset: Math.abs(e.detail.dx) };
-      var vParams = { previous: previous, next: next, styleProperty: 'height', total: this._totalHeight, offset: Math.abs(e.detail.dy) };
-
-      var resizeParams = {
-        offset: this._draggingDirection === 'horizontal' ? e.detail.dx : e.detail.dy,
-        params: this._draggingDirection === 'horizontal' ? hParams : vParams
-      };
-
-      this._resize(resizeParams.offset, resizeParams.params);
-    },
-
-    _computeDimensionsWithoutPadding: function(node) {
-      var bcr = node.getBoundingClientRect();
-      var cs = window.getComputedStyle(node);
-
-      return {
-        width: bcr.width - (parseInt(cs.paddingLeft) + parseInt(cs.paddingRight)),
-        height: bcr.height - (parseInt(cs.paddingTop) + parseInt(cs.paddingBottom))
-      };
-    },
-
-    _onTrackEnd: function() {
-      this.classList.remove('dragging');
-      this._nextSiblingDimensions = null;
-      this._previousSiblingDimensions = null;
-      this._totalWidth = null;
-      this._totalHeight = null;
-      this._eventFired = false;
-      this.fire('resizing', { state: 'end' });
-    },
-
-    _getPct: function(currentWidth, total) {
-      return Math.round(parseInt(currentWidth * 100) / parseInt(total));
-    },
-
-    _resize: function(offset, params) {
-      if (offset < 0) {
-        this._shrinkPrevious(params);
-      } else {
-        this._shrinkNext(params);
-      }
-    },
-
-    _isResizedToMinimum: function(node, styleProperty) {
-      return parseInt(window.getComputedStyle(node)[styleProperty]) === 0;
-    },
-
-    // Big 💩 -> PR are welcome :)
-    _shrinkPrevious: function(params) {
-      params.previous.style.cssText = params.styleProperty + ': calc(' + this._getPct(this._previousSiblingDimensions[params.styleProperty], params.total) + '% - ' + params.offset + 'px); flex-shrink: 0;';
-      if (!this._isResizedToMinimum(params.previous, params.styleProperty)) {
-        params.next.style.cssText = params.styleProperty + ': calc(' + this._getPct(this._nextSiblingDimensions[params.styleProperty], params.total) + '% + ' + params.offset + 'px); flex-shrink: 0;';
-      }
-    },
-
-    _shrinkNext: function(params) {
-      params.next.style.cssText = params.styleProperty + ': calc(' + this._getPct(this._nextSiblingDimensions[params.styleProperty], params.total) + '% - ' + params.offset + 'px); flex-shrink: 0;';
-      if (!this._isResizedToMinimum(params.next, params.styleProperty)) {
-        params.previous.style.cssText = params.styleProperty + ': calc(' + this._getPct(this._previousSiblingDimensions[params.styleProperty], params.total) + '% + ' + params.offset + 'px); flex-shrink: 0;';
-      }
+  _onTrack(e) {
+    if (!this._isKnob(e)) {
+      return;
     }
 
-    /**
-     * Fired when the panels are resized and when the resize ends
-     * @event resizing
-     * @param {Object} detail 'state' Can be 'start' or 'end'
-     */
-  });
+    if (!this._eventFired) {
+      this.dispatchEvent(new CustomEvent('resizing', { detail: { state: 'start' }}));
+      this.classList.add('dragging');
+      this._eventFired = true;
+    }
 
-}(Polymer));
+    let next = e.target.nextElementSibling;
+    let previous = e.target.previousElementSibling;
 
+    this._nextSiblingDimensions = this._nextSiblingDimensions || this._computeDimensionsWithoutPadding(next);
+    this._previousSiblingDimensions = this._previousSiblingDimensions || this._computeDimensionsWithoutPadding(previous);
+    this._totalWidth = this._totalWidth || e.currentTarget.getBoundingClientRect().width;
+    this._totalHeight = this._totalHeight || e.currentTarget.getBoundingClientRect().height;
 
+    let hParams = { previous: previous, next: next, styleProperty: 'width', total: this._totalWidth, offset: Math.abs(e.detail.dx) };
+    let vParams = { previous: previous, next: next, styleProperty: 'height', total: this._totalHeight, offset: Math.abs(e.detail.dy) };
+
+    let resizeParams = {
+      offset: this._draggingDirection === 'horizontal' ? e.detail.dx : e.detail.dy,
+      params: this._draggingDirection === 'horizontal' ? hParams : vParams
+    };
+
+    this._resize(resizeParams.offset, resizeParams.params);
+  }
+
+  _computeDimensionsWithoutPadding(node) {
+    let bcr = node.getBoundingClientRect();
+    let cs = window.getComputedStyle(node);
+
+    return {
+      width: bcr.width - (parseInt(cs.paddingLeft) + parseInt(cs.paddingRight)),
+      height: bcr.height - (parseInt(cs.paddingTop) + parseInt(cs.paddingBottom))
+    };
+  }
+
+  _onTrackEnd() {
+    this.classList.remove('dragging');
+    this._nextSiblingDimensions = null;
+    this._previousSiblingDimensions = null;
+    this._totalWidth = null;
+    this._totalHeight = null;
+    this._eventFired = false;
+    this.dispatchEvent(new CustomEvent('resizing', { detail: { state: 'end' }}));
+  }
+
+  _getPct(currentWidth, total) {
+    return Math.round(parseInt(currentWidth * 100) / parseInt(total));
+  }
+
+  _resize(offset, params) {
+    if (offset < 0) {
+      this._shrinkPrevious(params);
+    } else {
+      this._shrinkNext(params);
+    }
+  }
+
+  _isResizedToMinimum(node, styleProperty) {
+    return parseInt(window.getComputedStyle(node)[styleProperty]) === 0;
+  }
+
+  /**
+   * Big 💩 -> PR's are welcome :)
+   * @ignore
+   */
+  _shrinkPrevious(params) {
+    this._changeSize(params.previous, this._previousSiblingDimensions, params, '-');
+    if (!this._isResizedToMinimum(params.previous, params.styleProperty)) {
+      this._changeSize(params.next, this._nextSiblingDimensions, params, '+');
+    }
+  }
+
+  _shrinkNext(params) {
+    this._changeSize(params.next, this._nextSiblingDimensions, params, '-');
+    if (!this._isResizedToMinimum(params.next, params.styleProperty)) {
+      this._changeSize(params.previous, this._previousSiblingDimensions, params, '+');
+    }
+  }
+
+  _changeSize(elem, dimensions, params, operator) {
+    let pct = this._getPct(dimensions[params.styleProperty], params.total);
+    elem.style.cssText = `${params.styleProperty}: calc(${pct}% ${operator} ${params.offset}px); flex-shrink: 0;`;
+  }
+
+  /**
+   * Fired when the panels are resized and when the resize ends
+   * @event resizing
+   * @param {Object} detail 'state' Can be 'start' or 'end'
+   */
+}
+
+customElements.define(ResizablePanels.is, ResizablePanels);

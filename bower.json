@@ -20,14 +20,14 @@
   },
   "ignore": [],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.8.0"
+    "polymer": "Polymer/polymer#^2.0.0"
   },
   "devDependencies": {
-    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
-    "web-component-tester": "^4.0.0",
+    "web-component-tester": "^6.0.0",
     "iron-test-helpers": "PolymerElements/iron-test-helpers#^2.0.0"
   },
   "resolutions": {
-    "webcomponentsjs": "^0.7.20"
+    "webcomponentsjs": "^1.0.0",
+    "polymer": "^2.0.0"
   }
 }
