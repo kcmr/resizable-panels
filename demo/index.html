@@ -163,7 +163,6 @@
     <script>
     [].forEach.call(document.querySelectorAll('resizable-panels'), function(elem) {
       elem.addEventListener('resizing', function(e) {
-        console.log('fired');
         document.body.classList.toggle('no-selection', e.detail.state === 'start');
       });
     });
