@@ -82,11 +82,6 @@
             reflectToAttribute: true
           },
 
-          _childrens: {
-            type: Array,
-            value: null
-          },
-
           _draggingDirection: {
             type: String,
             computed: '_setDraggingDirection(vertical, _childrens)'
@@ -119,10 +114,12 @@
         }
       }
 
+      /**
+       * Add a height to the container in vertical mode and remove previous inline styles added to childrens
+       */
       _verticalObserver(_draggingDirection, _childrens) {
-        if (_draggingDirection === 'vertical' && _childrens) {
-          this.style.height = this.getBoundingClientRect().height + 'px';
-        }
+        this.style.height = _draggingDirection === 'vertical' ? this.getBoundingClientRect().height + 'px' : '';
+        [].forEach.call(this._childrens, (children) => { children.removeAttribute('style'); });
       }
 
       _addKnobs(panel, index) {
