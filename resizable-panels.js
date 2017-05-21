@@ -39,7 +39,7 @@ class ResizablePanels extends Polymer.GestureEventListeners(Polymer.Element) {
     super.connectedCallback();
     Polymer.Gestures.addListener(this, 'track', e => this._trackHandler(e));
     Polymer.RenderStatus.afterNextRender(this, function() {
-      this._childrens = Array.prototype.filter.call(Polymer.dom(this).childNodes, function(node) {
+      this._childrens = [].filter.call(this.childNodes, function(node) {
         return node.nodeType === Node.ELEMENT_NODE;
       });
       [].forEach.call(this._childrens, this._addKnobs.bind(this));
@@ -62,12 +62,12 @@ class ResizablePanels extends Polymer.GestureEventListeners(Polymer.Element) {
     if (index > 0) {
       var knob = document.createElement('div');
       knob.classList.add('knob', 'knob-panel-' + index);
-      Polymer.dom(this).insertBefore(knob, panel);
+      this.insertBefore(knob, panel);
     }
   }
 
   _isKnob(e) {
-    return Polymer.dom(e).localTarget.className.indexOf('knob-panel-') >= 0;
+    return e.target.className.indexOf('knob-panel-') >= 0;
   }
 
   _trackHandler(e) {
@@ -91,8 +91,8 @@ class ResizablePanels extends Polymer.GestureEventListeners(Polymer.Element) {
 
     this.classList.add('dragging');
 
-    var next = Polymer.dom(e).localTarget.nextElementSibling;
-    var previous = Polymer.dom(e).localTarget.previousElementSibling;
+    var next = e.target.nextElementSibling;
+    var previous = e.target.previousElementSibling;
 
     this._nextSiblingDimensions = this._nextSiblingDimensions || this._computeDimensionsWithoutPadding(next);
     this._previousSiblingDimensions = this._previousSiblingDimensions || this._computeDimensionsWithoutPadding(previous);
