@@ -148,17 +148,22 @@ class ResizablePanels extends Polymer.GestureEventListeners(Polymer.Element) {
    * @ignore
    */
   _shrinkPrevious(params) {
-    params.previous.style.cssText = params.styleProperty + ': calc(' + this._getPct(this._previousSiblingDimensions[params.styleProperty], params.total) + '% - ' + params.offset + 'px); flex-shrink: 0;';
+    this._changeSize(params.previous, this._previousSiblingDimensions, params, '-');
     if (!this._isResizedToMinimum(params.previous, params.styleProperty)) {
-      params.next.style.cssText = params.styleProperty + ': calc(' + this._getPct(this._nextSiblingDimensions[params.styleProperty], params.total) + '% + ' + params.offset + 'px); flex-shrink: 0;';
+      this._changeSize(params.next, this._nextSiblingDimensions, params, '+');
     }
   }
 
   _shrinkNext(params) {
-    params.next.style.cssText = params.styleProperty + ': calc(' + this._getPct(this._nextSiblingDimensions[params.styleProperty], params.total) + '% - ' + params.offset + 'px); flex-shrink: 0;';
+    this._changeSize(params.next, this._nextSiblingDimensions, params, '-');
     if (!this._isResizedToMinimum(params.next, params.styleProperty)) {
-      params.previous.style.cssText = params.styleProperty + ': calc(' + this._getPct(this._previousSiblingDimensions[params.styleProperty], params.total) + '% + ' + params.offset + 'px); flex-shrink: 0;';
+      this._changeSize(params.previous, this._previousSiblingDimensions, params, '+');
     }
+  }
+
+  _changeSize(elem, dimensions, params, operator) {
+    let pct = this._getPct(dimensions[params.styleProperty], params.total);
+    elem.style.cssText = `${params.styleProperty}: calc(${pct}% ${operator} ${params.offset}px); flex-shrink: 0;`;
   }
 }
 
