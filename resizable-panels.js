@@ -170,6 +170,12 @@ class ResizablePanels extends Polymer.GestureEventListeners(Polymer.Element) {
     let pct = this._getPct(dimensions[params.styleProperty], params.total);
     elem.style.cssText = `${params.styleProperty}: calc(${pct}% ${operator} ${params.offset}px); flex-shrink: 0;`;
   }
+
+  /**
+   * Fired when the panels are resized and when the resize ends
+   * @event resizing
+   * @params {detail} Object 'state' (start / end)
+   */
 }
 
 customElements.define(ResizablePanels.is, ResizablePanels);

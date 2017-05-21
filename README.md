@@ -37,6 +37,13 @@ Vertical mode:
     </resizable-panels>
 ```
 
+## Events
+
+- `resizing`: 
+Fired when the panels are resized and when the resize ends.
+@params {detail} Object { state: start|end }
+
+
 ## Styling
 
 The following custom CSS properties are available for styling:
