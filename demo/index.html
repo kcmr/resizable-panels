@@ -19,6 +19,8 @@
         line-height: 1.4;
       }
 
+      .no-selection { -webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none; }
+
       h1 {
         margin-top: 0;
         font-weight: 300;
@@ -157,5 +159,14 @@
   </code></pre>
       </resizable-panels>
     </div>
+
+    <script>
+    [].forEach.call(document.querySelectorAll('resizable-panels'), function(elem) {
+      elem.addEventListener('resizing', function(e) {
+        console.log('fired');
+        document.body.classList.toggle('no-selection', e.detail.state === 'start');
+      });
+    });
+    </script>
   </body>
 </html>

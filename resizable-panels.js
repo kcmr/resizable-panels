@@ -87,7 +87,11 @@ class ResizablePanels extends Polymer.GestureEventListeners(Polymer.Element) {
       return;
     }
 
-    this.classList.add('dragging');
+    if (!this._eventFired) {
+      this.dispatchEvent(new CustomEvent('resizing', { detail: { state: 'start' }}));
+      this.classList.add('dragging');
+      this._eventFired = true;
+    }
 
     let next = e.target.nextElementSibling;
     let previous = e.target.previousElementSibling;
@@ -124,7 +128,8 @@ class ResizablePanels extends Polymer.GestureEventListeners(Polymer.Element) {
     this._previousSiblingDimensions = null;
     this._totalWidth = null;
     this._totalHeight = null;
-    window.getSelection().removeAllRanges();
+    this._eventFired = false;
+    this.dispatchEvent(new CustomEvent('resizing', { detail: { state: 'end' }}));
   }
 
   _getPct(currentWidth, total) {
@@ -143,7 +148,7 @@ class ResizablePanels extends Polymer.GestureEventListeners(Polymer.Element) {
     return parseInt(window.getComputedStyle(node)[styleProperty]) === 0;
   }
 
-  /** 
+  /**
    * Big 💩 -> PR's are welcome :)
    * @ignore
    */
