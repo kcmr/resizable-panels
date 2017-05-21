@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/lib/mixins/gesture-event-listeners.html">
 
 <!--
 `<resizable-panels>` allows to resize the width (default) or the height (vertical mode) of the component childrens.
@@ -62,7 +63,7 @@ The following custom CSS properties are available for styling:
         background-color: var(--resizable-panels-knob-color, #fff);
         cursor: col-resize;
         flex-shrink: 0;
-        @apply(--resizable-panels-knob);
+        @apply --resizable-panels-knob;
       }
 
       :host([vertical]) ::slotted(.knob) {
@@ -73,7 +74,7 @@ The following custom CSS properties are available for styling:
         margin-top: calc(var(--resizable-panels-knob-size, 4px) / 2 * -1);
         margin-bottom: calc(var(--resizable-panels-knob-size, 4px) / 2 * -1);
         cursor: row-resize;
-        @apply(--resizable-panels-knob);
+        @apply --resizable-panels-knob;
       }
 
       :host(.dragging) ::slotted(*) {
