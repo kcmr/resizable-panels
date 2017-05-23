@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "web-component-tester": "^6.0.0",
-    "iron-test-helpers": "PolymerElements/iron-test-helpers#^2.0.0"
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#^2.0.0",
+    "code-highlighter": "kcmr/code-highlighter"
   }
 }

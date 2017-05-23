@@ -6,10 +6,9 @@
     <title>resizable-panels Demo</title>
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="../resizable-panels.html">
+    <link rel="import" href="../../code-highlighter/themes/one-dark.html">
+    <link rel="import" href="../../code-highlighter/code-highlighter.html">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400" rel="stylesheet">
-    <link rel="stylesheet" href="vendor/styles/atom-one-dark.css">
-    <script src="vendor/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
     <style>
       body {
         margin: 0;
@@ -63,18 +62,11 @@
         height: 120px;
       }
 
-      pre { margin: 4px 0 0; }
-      code { font-family: monaco, consolas, monospace; }
-      resizable-panels pre {
+      code-highlighter { margin: 4px 0 0; }
+      resizable-panels code-highlighter {
         width: 50%;
         background-color: #282c34;
       }
-
-      .code {
-        width: 100%;
-        overflow: hidden;
-      }
-
     </style>
   </head>
   <body>
@@ -87,12 +79,15 @@
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam perferendis cupiditate consequuntur veritatis labore neque, maxime ea voluptatem dolorum provident, aut ipsa sed enim sit necessitatibus, tempore nisi non animi?
         </div>
       </resizable-panels>
-<pre><code class="html">
-  &lt;resizable-panels&gt;
-    &lt;div class=&quot;main&quot;&gt;Lorem...&lt;/div&gt;
-    &lt;div class=&quot;sidebar&quot;&gt;Lorem ipsum...&lt;/div&gt;
-  &lt;/resizable-panels&gt;
-  </code></pre>
+
+      <code-highlighter type="html">
+        <template>
+          <resizable-panels>
+            <div class="main">Lorem...</div>
+            <div class="sidebar">Lorem ipsum...</div>
+          </resizable-panels>
+        </template>
+      </code-highlighter>
     </div>
 
     <div class="demo">
@@ -105,16 +100,20 @@
         </div>
       </resizable-panels>
       <resizable-panels class="code">
-<pre><code class="html">
-  &lt;resizable-panels&gt;
-    &lt;div class=&quot;main&quot;&gt;Lorem...&lt;/div&gt;
-    &lt;div class=&quot;sidebar&quot;&gt;Lorem ipsum...&lt;/div&gt;
-  &lt;/resizable-panels&gt;
-  </code></pre>
-<pre><code class="css">
-  .w60 { width: 60%; }
-  .w40 { width: 40%; }
-  </code></pre>
+        <code-highlighter type="html">
+          <template>
+            <resizable-panels>
+              <div class="main">Lorem...</div>
+              <div class="sidebar">Lorem ipsum...</div>
+            </resizable-panels>
+          </template>
+        </code-highlighter>
+        <code-highlighter type="css">
+          <template>
+            .w60 { width: 60%; }
+            .w40 { width: 40%; }
+          </template>
+        </code-highlighter>
       </resizable-panels>
     </div>
 
@@ -125,13 +124,15 @@
         <div class="panel p2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed sapiente, veniam sint amet excepturi temporibus impedit praesentium fugit perspiciatis pariatur ab provident totam sequi nemo, corporis, placeat doloremque, accusamus?</div>
         <div class="panel p3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed sapiente, veniam sint amet excepturi temporibus impedit praesentium fugit perspiciatis pariatur ab provident totam sequi nemo, corporis, placeat doloremque, accusamus?</div>
       </resizable-panels>
-<pre><code class="html">
-  &lt;resizable-panels&gt;
-    &lt;div class=&quot;panel p1&quot;&gt;Lorem...&lt;/div&gt;
-    &lt;div class=&quot;panel p2&quot;&gt;Lorem...&lt;/div&gt;
-    &lt;div class=&quot;panel p3&quot;&gt;Lorem...&lt;/div&gt;
-  &lt;/resizable-panels&gt;
-  </code></pre>
+      <code-highlighter type="html">
+        <template>
+          <resizable-panels>
+            <div class="panel p1">Lorem...</div>
+            <div class="panel p2">Lorem...</div>
+            <div class="panel p3">Lorem...</div>
+          </resizable-panels>
+        </template>
+      </code-highlighter>
     </div>
 
     <div class="demo">
@@ -145,18 +146,22 @@
         </div>
       </resizable-panels>
       <resizable-panels class="code">
-<pre><code class="html">
-  &lt;resizable-panels vertical&gt;
-    &lt;div class=&quot;panel p4&quot;&gt;Lorem...&lt;/div&gt;
-    &lt;div class=&quot;panel p5&quot;&gt;Lorem...&lt;/div&gt;
-    &lt;div class=&quot;panel p6&quot;&gt;Lorem...&lt;/div&gt;
-  &lt;/resizable-panels&gt;
-  </code></pre>
-<pre><code class="css">
-  resizable-panels[vertical] .panel {
-    height: 120px;
-  }
-  </code></pre>
+        <code-highlighter type="html">
+          <template>
+            <resizable-panels vertical>
+              <div class="panel p4">Lorem...</div>
+              <div class="panel p5">Lorem...</div>
+              <div class="panel p6">Lorem...</div>
+            </resizable-panels>
+          </template>
+        </code-highlighter>
+        <code-highlighter type="css">
+          <template>
+            resizable-panels[vertical] .panel {
+              height: 120px;
+            }
+          </template>
+        </code-highlighter>
       </resizable-panels>
     </div>
 
