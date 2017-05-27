@@ -25,11 +25,30 @@
         font-weight: 300;
       }
 
+      button {
+        font: inherit;
+        background-color: #EAEDED;
+        border: 0;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+        height: 40px;
+        padding: 0 20px;
+        border-radius: 3px;
+      }
+
+      button:active {
+        background-color: #D7DBDD;
+      }
+
       .demo {
         max-width: 800px;
         margin: 30px auto;
         background-color: #fff;
         padding: 20px;
+      }
+
+      .title-button {
+        display: flex;
+        justify-content: space-between;
       }
 
       .main {
@@ -71,8 +90,11 @@
   </head>
   <body>
     <div class="demo">
-      <h1>Two horizontal panels</h1>
-      <resizable-panels>
+      <div class="title-button">
+        <h1>Two horizontal panels</h1>
+        <button class="btn-toggle-layout" data-target="#rp-1">Change layout</button>
+      </div>
+      <resizable-panels id="rp-1">
         <div class="main">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis sapiente explicabo nemo cupiditate, consectetur distinctio? Quia aperiam sint, ex id quibusdam mollitia. Autem animi reprehenderit quam, dolorum hic, ratione sed.</div>
         <div class="sidebar">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam perferendis cupiditate consequuntur veritatis labore neque, maxime ea voluptatem dolorum provident, aut ipsa sed enim sit necessitatibus, tempore nisi non animi?
@@ -91,8 +113,11 @@
     </div>
 
     <div class="demo">
-      <h1>Two horizontal panels with initial <code>width</code></h1>
-      <resizable-panels>
+      <div class="title-button">
+        <h1>Two horizontal panels with initial <code>width</code></h1>
+        <button class="btn-toggle-layout" data-target="#rp-2">Change layout</button>
+      </div>
+      <resizable-panels id="rp-2">
         <div class="main w60">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis sapiente explicabo nemo cupiditate, consectetur distinctio? Quia aperiam sint, ex id quibusdam mollitia. Autem animi reprehenderit quam, dolorum hic, ratione sed.</div>
         <div class="sidebar w40">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam perferendis cupiditate consequuntur veritatis labore neque, maxime ea voluptatem dolorum provident, aut ipsa sed enim sit necessitatibus, tempore nisi non animi?
@@ -118,8 +143,11 @@
     </div>
 
     <div class="demo">
-      <h1>Three horizontal panels</h1>
-      <resizable-panels>
+      <div class="title-button">
+        <h1>Three horizontal panels</h1>
+        <button class="btn-toggle-layout" data-target="#rp-3">Change layout</button>
+      </div>
+      <resizable-panels id="rp-3">
         <div class="panel p1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed sapiente, veniam sint amet excepturi temporibus impedit praesentium fugit perspiciatis pariatur ab provident totam sequi nemo, corporis, placeat doloremque, accusamus?</div>
         <div class="panel p2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed sapiente, veniam sint amet excepturi temporibus impedit praesentium fugit perspiciatis pariatur ab provident totam sequi nemo, corporis, placeat doloremque, accusamus?</div>
         <div class="panel p3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed sapiente, veniam sint amet excepturi temporibus impedit praesentium fugit perspiciatis pariatur ab provident totam sequi nemo, corporis, placeat doloremque, accusamus?</div>
@@ -136,8 +164,11 @@
     </div>
 
     <div class="demo">
-      <h1>Three vertical panels with initial <code>height</code></h1>
-      <resizable-panels vertical>
+      <div class="title-button">
+        <h1>Three vertical panels with initial <code>height</code></h1>
+        <button class="btn-toggle-layout" data-target="#rp-4">Change layout</button>
+      </div>
+      <resizable-panels vertical id="rp-4">
         <div class="panel p4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed sapiente, veniam sint amet excepturi temporibus impedit praesentium fugit perspiciatis pariatur ab provident totam sequi nemo, corporis, placeat doloremque, accusamus?</div>
         <div class="panel p5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed sapiente, veniam sint amet excepturi temporibus impedit praesentium fugit perspiciatis pariatur ab provident totam sequi nemo, corporis, placeat doloremque, accusamus?</div>
         <div class="panel p6">
@@ -166,11 +197,21 @@
     </div>
 
     <script>
-    [].forEach.call(document.querySelectorAll('resizable-panels'), function(elem) {
-      elem.addEventListener('resizing', function(e) {
-        document.body.classList.toggle('no-selection', e.detail.state === 'start');
-      });
-    });
+      (function() {
+        [].forEach.call(document.querySelectorAll('resizable-panels'), elem => {
+          elem.addEventListener('resizing', function(e) {
+            document.body.classList.toggle('no-selection', e.detail.state === 'start');
+          });
+        });
+
+        [].forEach.call(document.querySelectorAll('.btn-toggle-layout'), btn => {
+          btn.addEventListener('click', changeLayout.bind(null, document.querySelector(btn.dataset.target)));
+        });
+
+        function changeLayout(target) {
+          target.vertical = !target.vertical;
+        }
+      }());
     </script>
   </body>
 </html>
