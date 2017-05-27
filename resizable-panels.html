@@ -7,8 +7,6 @@
       :host {
         display: -webkit-box;
         display: flex;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
       }
 
       :host([hidden]) { display: none; }
@@ -197,7 +195,7 @@
             params: this._draggingDirection === 'horizontal' ? hParams : vParams
           };
 
-          this._resize(resizeParams.offset, resizeParams.params);
+          this._resize(resizeParams);
         }
 
         _computeDimensionsWithoutPadding(node) {
@@ -224,12 +222,8 @@
           return Math.round(parseInt(currentWidth * 100) / parseInt(total));
         }
 
-        _resize(offset, params) {
-          if (offset < 0) {
-            this._shrinkPrevious(params);
-          } else {
-            this._shrinkNext(params);
-          }
+        _resize({offset, params}) {
+          offset < 0 ? this._shrinkPrevious(params) : this._shrinkNext(params);
         }
 
         _isResizedToMinimum(node, styleProperty) {
@@ -237,8 +231,8 @@
         }
 
         /**
-         * Big 💩 -> PR's are welcome :)
          * @ignore
+         * Big 💩 -> PR's are welcome :)
          */
         _shrinkPrevious(params) {
           this._changeSize(params.previous, this._previousSiblingDimensions, params, '-');
