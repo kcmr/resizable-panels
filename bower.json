@@ -1,6 +1,6 @@
 {
   "name": "resizable-panels",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "authors": [
     "Kus Cámara <kus.camara@gmail.com>"
   ],
@@ -25,6 +25,6 @@
   "devDependencies": {
     "web-component-tester": "^6.0.0",
     "iron-test-helpers": "PolymerElements/iron-test-helpers#^2.0.0",
-    "code-sample": "kcmr/code-sample"
+    "code-sample": "^0.1.2"
   }
 }
