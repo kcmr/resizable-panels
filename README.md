@@ -70,7 +70,7 @@ $ bower i -S kcmr/resizable-panels
 
 Import Web Components polyfill:
 
-```js
+```html
 <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 ```
 
