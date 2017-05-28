@@ -199,7 +199,7 @@
     <script>
       (function() {
         [].forEach.call(document.querySelectorAll('resizable-panels'), elem => {
-          elem.addEventListener('resizing', function(e) {
+          elem.addEventListener('resizing', e => {
             document.body.classList.toggle('no-selection', e.detail.state === 'start');
           });
         });

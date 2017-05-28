@@ -160,9 +160,7 @@
             'start': this._onTrackStart.bind(this),
             'track': this._onTrack.bind(this),
             'end': this._onTrackEnd.bind(this)
-          };
-
-          state[e.detail.state](e);
+          }[e.detail.state](e);
         }
 
         _onTrackStart(e) {
