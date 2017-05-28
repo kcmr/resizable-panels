@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <link rel="import" href="../code-sample.html">
+  </head>
+  <body>
+
+    <test-fixture id="default">
+      <template>
+        <code-sample>
+          <template>
+            <p>Some content</p>
+          </template>
+        </code-sample>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="noTpl">
+      <template>
+        <code-sample>
+          <p>Some content</p>
+        </code-sample>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="empty">
+      <template>
+        <code-sample></code-sample>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<code-sample> without content inside a <template> tag', () => {
+        setup(() => {fixture('noTpl')});
+
+        test('logs an error in console', done => {
+          let consoleErrorStub = sinon.stub(window.console, 'error');
+          flush(() => {
+            assert.isTrue(consoleErrorStub.called);
+            consoleErrorStub.restore();
+            done();
+          });
+        });
+      });
+
+      suite('<code-sample> empty', () => {
+        setup(() => {fixture('empty')});
+
+        test('does not log an error in console', done => {
+          let consoleErrorStub = sinon.stub(window.console, 'error');
+          flush(() => {
+            assert.isFalse(consoleErrorStub.called);
+            consoleErrorStub.restore();
+            done();
+          });
+        });
+      });
+
+      suite('<code-sample> with content inside a <template> tag', () => {
+        let el;
+        let hljsStub;
+        let code;
+
+        setup((done) => {
+          el = fixture('default');
+          hljsStub = sinon.stub(hljs, 'highlightBlock');
+          flush(() => {
+            code = el.shadowRoot.querySelector('code');
+            done();
+          });
+        });
+
+        teardown(() => {
+          hljsStub.restore();
+        });
+
+        test('creates a <code> element with the parsed (entitized) content innerHTML', () => {
+          assert.equal(code.innerHTML.trim(), '&lt;p&gt;Some content&lt;/p&gt;');
+        });
+
+        test('calls hljs.highlightBlock() with <code> node as param', () => {
+          assert.equal(hljsStub.getCall(0).args[0], code);
+        });
+      });
+
+      suite('<code-sample type="html"> with type attribute', () => {
+        let el;
+
+        setup((done) => {
+          el = fixture('default');
+          el.type = 'html';
+          flush(() => {
+            code = el.shadowRoot.querySelector('code');
+            done();
+          });
+        });
+
+        test('sets type property as class for the <code>', () => {
+          assert.isTrue(code.classList.contains('html'));
+        });
+      });
+
+    </script>
+
+  </body>
+</html>

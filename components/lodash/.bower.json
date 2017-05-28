@@ -1,0 +1,24 @@
+{
+  "name": "lodash",
+  "main": "lodash.js",
+  "ignore": [
+    ".*",
+    "*.custom.*",
+    "*.log",
+    "*.map",
+    "*.md",
+    "lodash.src.js",
+    "component.json",
+    "package.json",
+    "doc",
+    "node_modules",
+    "perf",
+    "test",
+    "vendor"
+  ],
+  "_source": "art://lodash/lodash",
+  "_target": "^3.7.0",
+  "_release": "3.10.1",
+  "version": "3.10.1",
+  "_originalSource": "lodash"
+}
