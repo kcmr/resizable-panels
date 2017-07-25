@@ -58,7 +58,6 @@
   </template>
   <script>
     (function() {
-      'use strict';
 
       /**
        * `<resizable-panels>` allows to resize the width (default) or the height (vertical mode) of the component childrens.
@@ -70,7 +69,7 @@
        * @demo demo/index.html
        */
       class ResizablePanels extends Polymer.GestureEventListeners(Polymer.Element) {
-        static get is() { return 'resizable-panels' }
+        static get is() { return 'resizable-panels'; }
 
         static get properties() {
           return {
