@@ -1,2 +1,3 @@
-bower_components/
+bower_components*/
 coverage-reports/
+bower-1.x.json

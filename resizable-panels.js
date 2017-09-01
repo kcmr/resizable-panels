@@ -36,8 +36,10 @@
     ],
 
     attached: function() {
-      this._childrens = Polymer.dom(this).children;
-      this._childrens.forEach(this._addKnobs.bind(this));
+      setTimeout(() => {
+        this._childrens = [].filter.call(this.childNodes, (node) => node.nodeType === Node.ELEMENT_NODE);
+        [].forEach.call(this._childrens, this._addKnobs.bind(this));
+      }, 1);
     },
 
     _setDraggingDirection: function(vertical, _childrens) {
