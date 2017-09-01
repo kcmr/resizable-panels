@@ -38,9 +38,12 @@
           el = fixture('default');
         });
 
-        test('Inserts knobs between childrens', function() {
-          var knobs = Polymer.dom(el).querySelectorAll('.knob');
-          assert.equal(knobs.length, 2);
+        test('Inserts knobs between childrens', function(done) {
+          flush(function() {
+            var knobs = Polymer.dom(el).querySelectorAll('.knob');
+            assert.equal(knobs.length, 2);
+            done();
+          });
         });
 
         suite('Dragging', function() {
@@ -50,12 +53,15 @@
           var previousNodeWidth;
           var nextNodeWidth;
 
-          setup(function() {
-            firstKnob = Polymer.dom(el).querySelector('.knob');
-            previousNode = Polymer.dom(el).querySelector('div');
-            nextNode = Polymer.dom(el).querySelectorAll('div:not(.knob)')[1];
-            previousNodeWidth = parseInt(window.getComputedStyle(previousNode).width);
-            nextNodeWidth = parseInt(window.getComputedStyle(nextNode).width);
+          setup(function(done) {
+            flush(function() {
+              firstKnob = Polymer.dom(el).querySelector('.knob');
+              previousNode = Polymer.dom(el).querySelector('div');
+              nextNode = Polymer.dom(el).querySelectorAll('div:not(.knob)')[1];
+              previousNodeWidth = parseInt(window.getComputedStyle(previousNode).width);
+              nextNodeWidth = parseInt(window.getComputedStyle(nextNode).width);
+              done();
+            });
           });
 
           test('Prevents text selection while dragging', function() {
@@ -105,12 +111,15 @@
           var previousNodeHeight;
           var nextNodeHeight;
 
-          setup(function() {
-            firstKnob = Polymer.dom(el).querySelector('.knob');
-            previousNode = Polymer.dom(el).querySelector('div');
-            nextNode = Polymer.dom(el).querySelectorAll('div:not(.knob)')[1];
-            previousNodeHeight = parseInt(window.getComputedStyle(previousNode).height);
-            nextNodeHeight = parseInt(window.getComputedStyle(nextNode).height);
+          setup(function(done) {
+            flush(function() {
+              firstKnob = Polymer.dom(el).querySelector('.knob');
+              previousNode = Polymer.dom(el).querySelector('div');
+              nextNode = Polymer.dom(el).querySelectorAll('div:not(.knob)')[1];
+              previousNodeHeight = parseInt(window.getComputedStyle(previousNode).height);
+              nextNodeHeight = parseInt(window.getComputedStyle(nextNode).height);
+              done();
+            });
           });
 
           test('Dragging to top decreases the height of the node above the knob', function() {
