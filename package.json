@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "browser-sync": "^2.18.13"
+  },
+  "scripts": {
+    "serve": "node server"
+  }
+}
